@@ -1,0 +1,88 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <errno.h>
+#include <bpf/bpf.h>
+#include <bpf/libbpf.h>
+#include <net/if.h>
+#include <linux/if_link.h>
+
+#define MAP_NAME "packet_count"
+
+int main(int argc, char **argv) {
+    if (argc != 3) {
+        fprintf(stderr, "Usage: %s <ifname> <xdp_obj_file>\n", argv[0]);
+        return 1;
+    }
+
+    char *ifname = argv[1];
+    char *filename = argv[2];
+
+    struct bpf_object *obj;
+    int prog_fd, map_fd;
+
+    // Load and verify BPF application
+    obj = bpf_object__open_file(filename, NULL);
+    if (libbpf_get_error(obj)) {
+        fprintf(stderr, "Error opening BPF object file\n");
+        return 1;
+    }
+
+    // Load BPF program
+    if (bpf_object__load(obj)) {
+        fprintf(stderr, "Error loading BPF object file\n");
+        bpf_object__close(obj);
+        return 1;
+    }
+
+    // Get file descriptor of BPF program
+    struct bpf_program *prog = bpf_object__find_program_by_name(obj, "xdp_packet_counter");
+    if (!prog) {
+        fprintf(stderr, "Error finding XDP program in object file\n");
+        bpf_object__close(obj);
+        return 1;
+    }
+    prog_fd = bpf_program__fd(prog);
+
+    map_fd = bpf_object__find_map_fd_by_name(obj, MAP_NAME);
+    if (map_fd < 0) {
+        fprintf(stderr, "Error finding map\n");
+        bpf_object__close(obj);
+        return 1;
+    }
+
+    int ifindex = if_nametoindex(ifname);
+    if (ifindex == 0) {
+        fprintf(stderr, "Error getting interface index: %s\n", strerror(errno));
+        bpf_object__close(obj);
+        return 1;
+    }
+    struct bpf_xdp_attach_opts opts = {
+	.sz = sizeof(struct bpf_xdp_attach_opts),
+    };
+    if (bpf_xdp_attach(ifindex, prog_fd, 0, &opts) < 0) {
+	perror("bpf_xdp_attach");
+        return 1;
+    }
+
+    printf("XDP program attached to interface %s\n", ifname);
+
+    while (1) {
+        __u32 key, next_key;
+        __u64 value;
+
+        key = 0;
+        while (bpf_map_get_next_key(map_fd, &key, &next_key) == 0) {
+            if (bpf_map_lookup_elem(map_fd, &next_key, &value) == 0) {
+                printf("Protocol %u: %llu packets\n", next_key, value);
+            }
+            key = next_key;
+        }
+
+        printf("\n");
+        sleep(1);
+    }
+
+    return 0;
+}
