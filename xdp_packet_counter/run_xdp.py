@@ -10,6 +10,6 @@ def run_xdp(ifname, xdp_obj_file):
         print("Erro ao executar o comando:", e.stderr)
 
 if __name__ == "__main__":
-    interface = "enp0s3"  # Substitua pelo nome da interface de rede
-    xdp_file = "xdp_counter.o"  # Substitua pelo nome do arquivo objeto XDP
+    interface = "enp0s3"  # nome da interface de rede
+    xdp_file = "xdp_counter.o"  # nome do arquivo objeto XDP
     run_xdp(interface, xdp_file)

@@ -22,21 +22,21 @@ int main(int argc, char **argv) {
     struct bpf_object *obj;
     int prog_fd, map_fd;
 
-    // Load and verify BPF application
+    // Carrega e Verifica a aplicação BPF
     obj = bpf_object__open_file(filename, NULL);
     if (libbpf_get_error(obj)) {
         fprintf(stderr, "Error opening BPF object file\n");
         return 1;
     }
 
-    // Load BPF program
+    // Carrega o programa BPF 
     if (bpf_object__load(obj)) {
         fprintf(stderr, "Error loading BPF object file\n");
         bpf_object__close(obj);
         return 1;
     }
 
-    // Get file descriptor of BPF program
+    // Obtem o descritor de arquivo do programa BPF
     struct bpf_program *prog = bpf_object__find_program_by_name(obj, "xdp_packet_counter");
     if (!prog) {
         fprintf(stderr, "Error finding XDP program in object file\n");
@@ -58,6 +58,7 @@ int main(int argc, char **argv) {
         bpf_object__close(obj);
         return 1;
     }
+	
     struct bpf_xdp_attach_opts opts = {
 	.sz = sizeof(struct bpf_xdp_attach_opts),
     };
