@@ -10,7 +10,7 @@
     - Crie um arquivo chamado **`xdp_count.c`**. Este arquivo conterá o código que será executado para contar os pacotes.
     - Adicione o seguinte código ao arquivo:
         
-        #include <linux/bpf.h>
+       `#include <linux/bpf.h>
         #include <bpf/bpf_helpers.h>
         #include <linux/if_ether.h>
         #include <linux/ip.h>
@@ -57,7 +57,7 @@
             return XDP_PASS;
         }
         
-        char _license[] SEC("license") = "GPL";
+        char _license[] SEC("license") = "GPL";`
 3. **Definindo o Mapa BPF:**
     - Criar um arquivo chamado **`xdp_count.h`** para definir o mapa BPF, que é será feito o  armazenamento da contagem de pacotes.
     - Adicionar o seguinte código ao arquivo:
