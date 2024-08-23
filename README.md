@@ -211,7 +211,7 @@
       
 7. **Carregar o Programa na Interface de Rede:**
     - Use o comando **'ip'** para carregar o programa XDP na interface de rede desejada (substitua **'<interface>'** pelo nome da sua interface de rede, como **'eth0, enp0s3...'**):
-        `ip link set dev <interface> xdp obj xdp_count.o sec xdp`
+        `sudo ip link set dev <interface> xdp obj xdp_count.o sec xdp`
 8. **Rodar o programa de contagem de pacotes:**
     - Basta utilizar o seguinte comando no bash: `sudo ./xdp_loader enp0s3 xdp_counter.o`. 
 
