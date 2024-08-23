@@ -16,7 +16,7 @@
         #include <linux/if_ether.h>
         #include <linux/ip.h>
         #include <linux/in.h>
-
+        
         struct {
             __uint(type, BPF_MAP_TYPE_HASH);
             __uint(max_entries, 256);
@@ -58,7 +58,8 @@
             return XDP_PASS;
         }
         
-        char _license[] SEC("license") = "GPL";
+       char _license[] SEC("license") = "GPL";
+
 
 3. **Definindo o Mapa BPF:**
     - Criar um arquivo chamado **`xdp_count.h`** para definir o mapa BPF, que é será feito o  armazenamento da contagem de pacotes.
@@ -93,18 +94,78 @@
                return 1;
            }
        
-         char *ifname = argv[1];
-         char *filename = argv[2];
-     
-         struct bpf_object *obj;
-         int prog_fd, map_fd;
-     
-         // Load and verify BPF application
-         obj = bpf_object__open_file(filename, NULL);
-         if (libbpf_get_error(obj)) {
-             fprintf(stderr, "Error opening BPF object file\n");
-             return 1;
-         }
+           char *ifname = argv[1];
+           char *filename = argv[2];
+       
+           struct bpf_object *obj;
+           int prog_fd, map_fd;
+       
+           // Load and verify BPF application
+           obj = bpf_object__open_file(filename, NULL);
+           if (libbpf_get_error(obj)) {
+               fprintf(stderr, "Error opening BPF object file\n");
+               return 1;
+           }
+       
+           // Load BPF program
+           if (bpf_object__load(obj)) {
+               fprintf(stderr, "Error loading BPF object file\n");
+               bpf_object__close(obj);
+               return 1;
+           }
+       
+           // Get file descriptor of BPF program
+           struct bpf_program *prog = bpf_object__find_program_by_name(obj, "xdp_packet_counter");
+           if (!prog) {
+               fprintf(stderr, "Error finding XDP program in object file\n");
+               bpf_object__close(obj);
+               return 1;
+           }
+           prog_fd = bpf_program__fd(prog);
+       
+           map_fd = bpf_object__find_map_fd_by_name(obj, MAP_NAME);
+           if (map_fd < 0) {
+               fprintf(stderr, "Error finding map\n");
+               bpf_object__close(obj);
+               return 1;
+           }
+       
+           int ifindex = if_nametoindex(ifname);
+           if (ifindex == 0) {
+               fprintf(stderr, "Error getting interface index: %s\n", strerror(errno));
+               bpf_object__close(obj);
+               return 1;
+           }
+           struct bpf_xdp_attach_opts opts = {
+       	.sz = sizeof(struct bpf_xdp_attach_opts),
+           };
+           if (bpf_xdp_attach(ifindex, prog_fd, 0, &opts) < 0) {
+       	perror("bpf_xdp_attach");
+               return 1;
+           }
+       
+           printf("XDP program attached to interface %s\n", ifname);
+       
+           while (1) {
+               __u32 key, next_key;
+               __u64 value;
+       
+               key = 0;
+               while (bpf_map_get_next_key(map_fd, &key, &next_key) == 0) {
+                   if (bpf_map_lookup_elem(map_fd, &next_key, &value) == 0) {
+                       printf("Protocol %u: %llu packets\n", next_key, value);
+                   }
+                   key = next_key;
+               }
+       
+               printf("\n");
+               sleep(1);
+           }
+       
+           return 0;
+       }
+
+
 
 
 5. **Criar um arquivo Makefile:**
@@ -125,23 +186,24 @@
                all: xdp_counter.o xdp_loader
                
                %.o: %.c
-                       $(CLANG) -S \
-                           -target bpf \
-                           -D __BPF_TRACING__ \
-                           $(CFLAGS) \
-                           -Wall \
-                           -Wno-unused-value \
-                           -Wno-pointer-sign \
-                           -Wno-compare-distinct-pointer-types \
-                           -Werror \
-                           -O2 -emit-llvm -c -g -o ${@:.o=.ll} $<
-                       $(LLC) -march=bpf -filetype=obj -o $@ ${@:.o=.ll}
+               	$(CLANG) -S \
+               	    -target bpf \
+               	    -D __BPF_TRACING__ \
+               	    $(CFLAGS) \
+               	    -Wall \
+               	    -Wno-unused-value \
+               	    -Wno-pointer-sign \
+               	    -Wno-compare-distinct-pointer-types \
+               	    -Werror \
+               	    -O2 -emit-llvm -c -g -o ${@:.o=.ll} $<
+               	$(LLC) -march=bpf -filetype=obj -o $@ ${@:.o=.ll}
                
                xdp_loader: xdp_loader.c
-                       $(CC) $(CFLAGS) -o $@ $< $(LDFLAGS)
+               	$(CC) $(CFLAGS) -o $@ $< $(LDFLAGS)
                
                clean:
-                       rm -f *.o *.ll xdp_loader
+               	rm -f *.o *.ll xdp_loader
+
 
 6. **Compilar o Programa:**      
     - Compilar o programa usando o **'Makefile'** para gerar um arquivo de objeto (**`.o`**).
