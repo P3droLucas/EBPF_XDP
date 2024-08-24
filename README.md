@@ -179,26 +179,35 @@
         
         	// Loop infinito para exibir as contagens de pacotes. 
             while (1) {
-                __u32 key, next_key;
-                __u64 value;
-        
-                key = 0;
-                while (bpf_map_get_next_key(map_fd, &key, &next_key) == 0) {
-                    if (bpf_map_lookup_elem(map_fd, &next_key, &value) == 0) {
-                        printf("Protocol %u: %llu packets\n", next_key, value);
-                    }
-                    key = next_key;
-                }
-        
-                printf("\n");
-                sleep(1);
-            }
-        
-            return 0;
-        }
-
-
-
+           	    __u32 key, next_key;
+           	    __u64 value;
+           
+           	    key = 0;
+           	    while (bpf_map_get_next_key(map_fd, &key, &next_key) == 0) {
+           	        if (bpf_map_lookup_elem(map_fd, &next_key, &value) == 0) {
+           	            const char *protocol_name;
+           	            switch (next_key) {
+           	                case 6:
+           	                    protocol_name = "TCP";
+           	                    break;
+           	                case 17:
+           	                    protocol_name = "UDP";
+           	                    break;
+           	                case 1:
+           	                    protocol_name = "ICMP";
+           	                    break;
+           	                default:
+           	                    protocol_name = "%s";
+           	                    break;
+           	            }
+           	            printf("Protocolo %u (%s) identificado: %llu Pacotes recebidos\n", next_key, protocol_name, value);
+           	        }
+           	        key = next_key;
+           	    }
+           
+           	    printf("\n");
+           	    sleep(1);
+           	}
 
 
 5. **Criar um arquivo Makefile:**
