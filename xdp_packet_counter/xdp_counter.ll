@@ -8,92 +8,92 @@ target triple = "bpf"
 %struct.ethhdr = type { [6 x i8], [6 x i8], i16 }
 
 @packet_count = dso_local global %struct.anon.1 zeroinitializer, section ".maps", align 8, !dbg !0
-@_license = dso_local global [4 x i8] c"GPL\00", section "license", align 1, !dbg !78
+@_license = dso_local global [4 x i8] c"GPL\00", section "license", align 1, !dbg !61
 @llvm.compiler.used = appending global [3 x ptr] [ptr @_license, ptr @packet_count, ptr @xdp_packet_counter], section "llvm.metadata"
 
 ; Function Attrs: nounwind
-define dso_local noundef i32 @xdp_packet_counter(ptr nocapture noundef readonly %0) #0 section "xdp" !dbg !108 {
-  %2 = alloca i32, align 4, !DIAssignID !173
-  call void @llvm.dbg.assign(metadata i1 undef, metadata !166, metadata !DIExpression(), metadata !173, metadata ptr %2, metadata !DIExpression()), !dbg !174
-  %3 = alloca i64, align 8, !DIAssignID !175
-  call void @llvm.dbg.assign(metadata i1 undef, metadata !170, metadata !DIExpression(), metadata !175, metadata ptr %3, metadata !DIExpression()), !dbg !176
-  tail call void @llvm.dbg.value(metadata ptr %0, metadata !121, metadata !DIExpression()), !dbg !177
-  %4 = getelementptr inbounds %struct.xdp_md, ptr %0, i64 0, i32 1, !dbg !178
-  %5 = load i32, ptr %4, align 4, !dbg !178, !tbaa !179
-  %6 = zext i32 %5 to i64, !dbg !184
-  %7 = inttoptr i64 %6 to ptr, !dbg !185
-  tail call void @llvm.dbg.value(metadata ptr %7, metadata !122, metadata !DIExpression()), !dbg !177
-  %8 = load i32, ptr %0, align 4, !dbg !186, !tbaa !187
-  %9 = zext i32 %8 to i64, !dbg !188
-  %10 = inttoptr i64 %9 to ptr, !dbg !189
-  tail call void @llvm.dbg.value(metadata ptr %10, metadata !123, metadata !DIExpression()), !dbg !177
-  tail call void @llvm.dbg.value(metadata ptr %10, metadata !124, metadata !DIExpression()), !dbg !177
-  %11 = getelementptr inbounds i8, ptr %10, i64 14, !dbg !190
-  %12 = icmp ugt ptr %11, %7, !dbg !192
-  br i1 %12, label %39, label %13, !dbg !193
+define dso_local noundef i32 @xdp_packet_counter(ptr nocapture noundef readonly %0) #0 section "xdp" !dbg !106 {
+  %2 = alloca i32, align 4, !DIAssignID !171
+  call void @llvm.dbg.assign(metadata i1 undef, metadata !164, metadata !DIExpression(), metadata !171, metadata ptr %2, metadata !DIExpression()), !dbg !172
+  %3 = alloca i64, align 8, !DIAssignID !173
+  call void @llvm.dbg.assign(metadata i1 undef, metadata !168, metadata !DIExpression(), metadata !173, metadata ptr %3, metadata !DIExpression()), !dbg !174
+  tail call void @llvm.dbg.value(metadata ptr %0, metadata !119, metadata !DIExpression()), !dbg !175
+  %4 = getelementptr inbounds %struct.xdp_md, ptr %0, i64 0, i32 1, !dbg !176
+  %5 = load i32, ptr %4, align 4, !dbg !176, !tbaa !177
+  %6 = zext i32 %5 to i64, !dbg !182
+  %7 = inttoptr i64 %6 to ptr, !dbg !183
+  tail call void @llvm.dbg.value(metadata ptr %7, metadata !120, metadata !DIExpression()), !dbg !175
+  %8 = load i32, ptr %0, align 4, !dbg !184, !tbaa !185
+  %9 = zext i32 %8 to i64, !dbg !186
+  %10 = inttoptr i64 %9 to ptr, !dbg !187
+  tail call void @llvm.dbg.value(metadata ptr %10, metadata !121, metadata !DIExpression()), !dbg !175
+  tail call void @llvm.dbg.value(metadata ptr %10, metadata !122, metadata !DIExpression()), !dbg !175
+  %11 = getelementptr inbounds i8, ptr %10, i64 14, !dbg !188
+  %12 = icmp ugt ptr %11, %7, !dbg !190
+  br i1 %12, label %39, label %13, !dbg !191
 
 13:                                               ; preds = %1
-  %14 = getelementptr inbounds %struct.ethhdr, ptr %10, i64 0, i32 2, !dbg !194
-  %15 = load i16, ptr %14, align 1, !dbg !194, !tbaa !196
-  %16 = icmp ne i16 %15, 8, !dbg !199
-  tail call void @llvm.dbg.value(metadata ptr %11, metadata !136, metadata !DIExpression()), !dbg !177
+  %14 = getelementptr inbounds %struct.ethhdr, ptr %10, i64 0, i32 2, !dbg !192
+  %15 = load i16, ptr %14, align 1, !dbg !192, !tbaa !194
+  %16 = icmp ne i16 %15, 8, !dbg !197
+  tail call void @llvm.dbg.value(metadata ptr %11, metadata !134, metadata !DIExpression()), !dbg !175
   %17 = getelementptr inbounds i8, ptr %10, i64 34
   %18 = icmp ugt ptr %17, %7
-  %19 = select i1 %16, i1 true, i1 %18, !dbg !200
-  br i1 %19, label %39, label %20, !dbg !200
+  %19 = select i1 %16, i1 true, i1 %18, !dbg !198
+  br i1 %19, label %39, label %20, !dbg !198
 
 20:                                               ; preds = %13
-  %21 = getelementptr inbounds i8, ptr %10, i64 23, !dbg !201
-  %22 = load i8, ptr %21, align 1, !dbg !201, !tbaa !202
+  %21 = getelementptr inbounds i8, ptr %10, i64 23, !dbg !199
+  %22 = load i8, ptr %21, align 1, !dbg !199, !tbaa !200
   switch i8 %22, label %39 [
     i8 6, label %23
     i8 17, label %23
     i8 1, label %23
-  ], !dbg !204
+  ], !dbg !202
 
 23:                                               ; preds = %20, %20, %20
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #4, !dbg !205
-  %24 = zext nneg i8 %22 to i32, !dbg !206
-  store i32 %24, ptr %2, align 4, !dbg !207, !tbaa !208, !DIAssignID !209
-  call void @llvm.dbg.assign(metadata i32 %24, metadata !166, metadata !DIExpression(), metadata !209, metadata ptr %2, metadata !DIExpression()), !dbg !174
-  %25 = call ptr inttoptr (i64 1 to ptr)(ptr noundef nonnull @packet_count, ptr noundef nonnull %2) #4, !dbg !210
-  tail call void @llvm.dbg.value(metadata ptr %25, metadata !169, metadata !DIExpression()), !dbg !174
-  %26 = icmp eq ptr %25, null, !dbg !211
-  br i1 %26, label %35, label %27, !dbg !212
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #4, !dbg !203
+  %24 = zext nneg i8 %22 to i32, !dbg !204
+  store i32 %24, ptr %2, align 4, !dbg !205, !tbaa !206, !DIAssignID !207
+  call void @llvm.dbg.assign(metadata i32 %24, metadata !164, metadata !DIExpression(), metadata !207, metadata ptr %2, metadata !DIExpression()), !dbg !172
+  %25 = call ptr inttoptr (i64 1 to ptr)(ptr noundef nonnull @packet_count, ptr noundef nonnull %2) #4, !dbg !208
+  tail call void @llvm.dbg.value(metadata ptr %25, metadata !167, metadata !DIExpression()), !dbg !172
+  %26 = icmp eq ptr %25, null, !dbg !209
+  br i1 %26, label %35, label %27, !dbg !210
 
 27:                                               ; preds = %23
-  %28 = load i32, ptr %2, align 4, !dbg !213, !tbaa !208
-  %29 = icmp eq i32 %28, 1, !dbg !216
-  br i1 %29, label %30, label %33, !dbg !217
+  %28 = load i32, ptr %2, align 4, !dbg !211, !tbaa !206
+  %29 = icmp eq i32 %28, 17, !dbg !214
+  br i1 %29, label %30, label %33, !dbg !215
 
 30:                                               ; preds = %27
-  %31 = load i64, ptr %25, align 8, !dbg !218, !tbaa !219
-  %32 = icmp ugt i64 %31, 10, !dbg !221
-  br i1 %32, label %38, label %33, !dbg !222
+  %31 = load i64, ptr %25, align 8, !dbg !216, !tbaa !217
+  %32 = icmp ugt i64 %31, 999, !dbg !219
+  br i1 %32, label %38, label %33, !dbg !220
 
 33:                                               ; preds = %30, %27
-  %34 = atomicrmw add ptr %25, i64 1 seq_cst, align 8, !dbg !223
-  br label %37, !dbg !224
+  %34 = atomicrmw add ptr %25, i64 1 seq_cst, align 8, !dbg !221
+  br label %37, !dbg !222
 
 35:                                               ; preds = %23
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #4, !dbg !225
-  store i64 1, ptr %3, align 8, !dbg !226, !tbaa !219, !DIAssignID !227
-  call void @llvm.dbg.assign(metadata i64 1, metadata !170, metadata !DIExpression(), metadata !227, metadata ptr %3, metadata !DIExpression()), !dbg !176
-  %36 = call i64 inttoptr (i64 2 to ptr)(ptr noundef nonnull @packet_count, ptr noundef nonnull %2, ptr noundef nonnull %3, i64 noundef 0) #4, !dbg !228
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #4, !dbg !229
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #4, !dbg !223
+  store i64 1, ptr %3, align 8, !dbg !224, !tbaa !217, !DIAssignID !225
+  call void @llvm.dbg.assign(metadata i64 1, metadata !168, metadata !DIExpression(), metadata !225, metadata ptr %3, metadata !DIExpression()), !dbg !174
+  %36 = call i64 inttoptr (i64 2 to ptr)(ptr noundef nonnull @packet_count, ptr noundef nonnull %2, ptr noundef nonnull %3, i64 noundef 0) #4, !dbg !226
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #4, !dbg !227
   br label %37
 
 37:                                               ; preds = %33, %35
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #4, !dbg !230
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #4, !dbg !228
   br label %39
 
 38:                                               ; preds = %30
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #4, !dbg !230
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #4, !dbg !228
   br label %39
 
 39:                                               ; preds = %38, %37, %20, %13, %1
-  %40 = phi i32 [ 2, %1 ], [ 2, %13 ], [ 1, %38 ], [ 2, %37 ], [ 2, %20 ], !dbg !177
-  ret i32 %40, !dbg !231
+  %40 = phi i32 [ 2, %1 ], [ 2, %13 ], [ 1, %38 ], [ 2, %37 ], [ 2, %20 ], !dbg !175
+  ret i32 %40, !dbg !229
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -115,13 +115,13 @@ attributes #3 = { nocallback nofree nosync nounwind speculatable willreturn memo
 attributes #4 = { nounwind }
 
 !llvm.dbg.cu = !{!2}
-!llvm.module.flags = !{!102, !103, !104, !105, !106}
-!llvm.ident = !{!107}
+!llvm.module.flags = !{!100, !101, !102, !103, !104}
+!llvm.ident = !{!105}
 
 !0 = !DIGlobalVariableExpression(var: !1, expr: !DIExpression())
-!1 = distinct !DIGlobalVariable(name: "packet_count", scope: !2, file: !3, line: 12, type: !84, isLocal: false, isDefinition: true)
+!1 = distinct !DIGlobalVariable(name: "packet_count", scope: !2, file: !3, line: 14, type: !82, isLocal: false, isDefinition: true)
 !2 = distinct !DICompileUnit(language: DW_LANG_C11, file: !3, producer: "Ubuntu clang version 18.1.3 (1ubuntu1)", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug, enums: !4, retainedTypes: !52, globals: !60, splitDebugInlining: false, nameTableKind: None)
-!3 = !DIFile(filename: "xdp_counter.c", directory: "/home/pedro/xdp_packet_counter", checksumkind: CSK_MD5, checksum: "5cab69a8e8850f4ac88b1e5e28061825")
+!3 = !DIFile(filename: "xdp_counter.c", directory: "/home/pedro/teste_final", checksumkind: CSK_MD5, checksum: "2cf75605ca69ac4a4267fa491adc9535")
 !4 = !{!5, !14, !46}
 !5 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "xdp_action", file: !6, line: 6320, baseType: !7, size: 32, elements: !8)
 !6 = !DIFile(filename: "/usr/include/linux/bpf.h", directory: "", checksumkind: CSK_MD5, checksum: "8106ce79fb72e4cfc709095592a01f1d")
@@ -178,175 +178,173 @@ attributes #4 = { nounwind }
 !57 = !DIDerivedType(tag: DW_TAG_typedef, name: "__u16", file: !58, line: 24, baseType: !59)
 !58 = !DIFile(filename: "/usr/include/asm-generic/int-ll64.h", directory: "", checksumkind: CSK_MD5, checksum: "b810f270733e106319b67ef512c6246e")
 !59 = !DIBasicType(name: "unsigned short", size: 16, encoding: DW_ATE_unsigned)
-!60 = !{!61, !70, !78, !0}
+!60 = !{!61, !0, !67, !75}
 !61 = !DIGlobalVariableExpression(var: !62, expr: !DIExpression())
-!62 = distinct !DIGlobalVariable(name: "bpf_map_lookup_elem", scope: !2, file: !63, line: 56, type: !64, isLocal: true, isDefinition: true)
-!63 = !DIFile(filename: "/usr/include/bpf/bpf_helper_defs.h", directory: "", checksumkind: CSK_MD5, checksum: "c4541ac9eb5775ba778051c940b03a18")
-!64 = !DIDerivedType(tag: DW_TAG_const_type, baseType: !65)
-!65 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !66, size: 64)
-!66 = !DISubroutineType(types: !67)
-!67 = !{!53, !53, !68}
-!68 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !69, size: 64)
-!69 = !DIDerivedType(tag: DW_TAG_const_type, baseType: null)
-!70 = !DIGlobalVariableExpression(var: !71, expr: !DIExpression())
-!71 = distinct !DIGlobalVariable(name: "bpf_map_update_elem", scope: !2, file: !63, line: 78, type: !72, isLocal: true, isDefinition: true)
-!72 = !DIDerivedType(tag: DW_TAG_const_type, baseType: !73)
+!62 = distinct !DIGlobalVariable(name: "_license", scope: !2, file: !3, line: 66, type: !63, isLocal: false, isDefinition: true)
+!63 = !DICompositeType(tag: DW_TAG_array_type, baseType: !64, size: 32, elements: !65)
+!64 = !DIBasicType(name: "char", size: 8, encoding: DW_ATE_signed_char)
+!65 = !{!66}
+!66 = !DISubrange(count: 4)
+!67 = !DIGlobalVariableExpression(var: !68, expr: !DIExpression(DW_OP_constu, 1, DW_OP_stack_value))
+!68 = distinct !DIGlobalVariable(name: "bpf_map_lookup_elem", scope: !2, file: !69, line: 56, type: !70, isLocal: true, isDefinition: true)
+!69 = !DIFile(filename: "/usr/include/bpf/bpf_helper_defs.h", directory: "", checksumkind: CSK_MD5, checksum: "09cfcd7169c24bec448f30582e8c6db9")
+!70 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !71, size: 64)
+!71 = !DISubroutineType(types: !72)
+!72 = !{!53, !53, !73}
 !73 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !74, size: 64)
-!74 = !DISubroutineType(types: !75)
-!75 = !{!54, !53, !68, !68, !76}
-!76 = !DIDerivedType(tag: DW_TAG_typedef, name: "__u64", file: !58, line: 31, baseType: !77)
-!77 = !DIBasicType(name: "unsigned long long", size: 64, encoding: DW_ATE_unsigned)
-!78 = !DIGlobalVariableExpression(var: !79, expr: !DIExpression())
-!79 = distinct !DIGlobalVariable(name: "_license", scope: !2, file: !3, line: 48, type: !80, isLocal: false, isDefinition: true)
-!80 = !DICompositeType(tag: DW_TAG_array_type, baseType: !81, size: 32, elements: !82)
-!81 = !DIBasicType(name: "char", size: 8, encoding: DW_ATE_signed_char)
-!82 = !{!83}
-!83 = !DISubrange(count: 4)
-!84 = distinct !DICompositeType(tag: DW_TAG_structure_type, file: !3, line: 7, size: 256, elements: !85)
-!85 = !{!86, !92, !97, !100}
-!86 = !DIDerivedType(tag: DW_TAG_member, name: "type", scope: !84, file: !3, line: 8, baseType: !87, size: 64)
-!87 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !88, size: 64)
-!88 = !DICompositeType(tag: DW_TAG_array_type, baseType: !89, size: 32, elements: !90)
-!89 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
-!90 = !{!91}
-!91 = !DISubrange(count: 1)
-!92 = !DIDerivedType(tag: DW_TAG_member, name: "max_entries", scope: !84, file: !3, line: 9, baseType: !93, size: 64, offset: 64)
-!93 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !94, size: 64)
-!94 = !DICompositeType(tag: DW_TAG_array_type, baseType: !89, size: 8192, elements: !95)
-!95 = !{!96}
-!96 = !DISubrange(count: 256)
-!97 = !DIDerivedType(tag: DW_TAG_member, name: "key", scope: !84, file: !3, line: 10, baseType: !98, size: 64, offset: 128)
-!98 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !99, size: 64)
-!99 = !DIDerivedType(tag: DW_TAG_typedef, name: "__u32", file: !58, line: 27, baseType: !7)
-!100 = !DIDerivedType(tag: DW_TAG_member, name: "value", scope: !84, file: !3, line: 11, baseType: !101, size: 64, offset: 192)
-!101 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !76, size: 64)
-!102 = !{i32 7, !"Dwarf Version", i32 5}
-!103 = !{i32 2, !"Debug Info Version", i32 3}
-!104 = !{i32 1, !"wchar_size", i32 4}
-!105 = !{i32 7, !"frame-pointer", i32 2}
-!106 = !{i32 7, !"debug-info-assignment-tracking", i1 true}
-!107 = !{!"Ubuntu clang version 18.1.3 (1ubuntu1)"}
-!108 = distinct !DISubprogram(name: "xdp_packet_counter", scope: !3, file: !3, line: 15, type: !109, scopeLine: 15, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !120)
-!109 = !DISubroutineType(types: !110)
-!110 = !{!89, !111}
-!111 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !112, size: 64)
-!112 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "xdp_md", file: !6, line: 6331, size: 192, elements: !113)
-!113 = !{!114, !115, !116, !117, !118, !119}
-!114 = !DIDerivedType(tag: DW_TAG_member, name: "data", scope: !112, file: !6, line: 6332, baseType: !99, size: 32)
-!115 = !DIDerivedType(tag: DW_TAG_member, name: "data_end", scope: !112, file: !6, line: 6333, baseType: !99, size: 32, offset: 32)
-!116 = !DIDerivedType(tag: DW_TAG_member, name: "data_meta", scope: !112, file: !6, line: 6334, baseType: !99, size: 32, offset: 64)
-!117 = !DIDerivedType(tag: DW_TAG_member, name: "ingress_ifindex", scope: !112, file: !6, line: 6336, baseType: !99, size: 32, offset: 96)
-!118 = !DIDerivedType(tag: DW_TAG_member, name: "rx_queue_index", scope: !112, file: !6, line: 6337, baseType: !99, size: 32, offset: 128)
-!119 = !DIDerivedType(tag: DW_TAG_member, name: "egress_ifindex", scope: !112, file: !6, line: 6339, baseType: !99, size: 32, offset: 160)
-!120 = !{!121, !122, !123, !124, !136, !166, !169, !170}
-!121 = !DILocalVariable(name: "ctx", arg: 1, scope: !108, file: !3, line: 15, type: !111)
-!122 = !DILocalVariable(name: "data_end", scope: !108, file: !3, line: 16, type: !53)
-!123 = !DILocalVariable(name: "data", scope: !108, file: !3, line: 17, type: !53)
-!124 = !DILocalVariable(name: "eth", scope: !108, file: !3, line: 18, type: !125)
-!125 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !126, size: 64)
-!126 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "ethhdr", file: !127, line: 173, size: 112, elements: !128)
-!127 = !DIFile(filename: "/usr/include/linux/if_ether.h", directory: "", checksumkind: CSK_MD5, checksum: "163f54fb1af2e21fea410f14eb18fa76")
-!128 = !{!129, !134, !135}
-!129 = !DIDerivedType(tag: DW_TAG_member, name: "h_dest", scope: !126, file: !127, line: 174, baseType: !130, size: 48)
-!130 = !DICompositeType(tag: DW_TAG_array_type, baseType: !131, size: 48, elements: !132)
-!131 = !DIBasicType(name: "unsigned char", size: 8, encoding: DW_ATE_unsigned_char)
-!132 = !{!133}
-!133 = !DISubrange(count: 6)
-!134 = !DIDerivedType(tag: DW_TAG_member, name: "h_source", scope: !126, file: !127, line: 175, baseType: !130, size: 48, offset: 48)
-!135 = !DIDerivedType(tag: DW_TAG_member, name: "h_proto", scope: !126, file: !127, line: 176, baseType: !55, size: 16, offset: 96)
-!136 = !DILocalVariable(name: "ip", scope: !108, file: !3, line: 26, type: !137)
-!137 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !138, size: 64)
-!138 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "iphdr", file: !139, line: 87, size: 160, elements: !140)
-!139 = !DIFile(filename: "/usr/include/linux/ip.h", directory: "", checksumkind: CSK_MD5, checksum: "149778ace30a1ff208adc8783fd04b29")
-!140 = !{!141, !143, !144, !145, !146, !147, !148, !149, !150, !152}
-!141 = !DIDerivedType(tag: DW_TAG_member, name: "ihl", scope: !138, file: !139, line: 89, baseType: !142, size: 4, flags: DIFlagBitField, extraData: i64 0)
-!142 = !DIDerivedType(tag: DW_TAG_typedef, name: "__u8", file: !58, line: 21, baseType: !131)
-!143 = !DIDerivedType(tag: DW_TAG_member, name: "version", scope: !138, file: !139, line: 90, baseType: !142, size: 4, offset: 4, flags: DIFlagBitField, extraData: i64 0)
-!144 = !DIDerivedType(tag: DW_TAG_member, name: "tos", scope: !138, file: !139, line: 97, baseType: !142, size: 8, offset: 8)
-!145 = !DIDerivedType(tag: DW_TAG_member, name: "tot_len", scope: !138, file: !139, line: 98, baseType: !55, size: 16, offset: 16)
-!146 = !DIDerivedType(tag: DW_TAG_member, name: "id", scope: !138, file: !139, line: 99, baseType: !55, size: 16, offset: 32)
-!147 = !DIDerivedType(tag: DW_TAG_member, name: "frag_off", scope: !138, file: !139, line: 100, baseType: !55, size: 16, offset: 48)
-!148 = !DIDerivedType(tag: DW_TAG_member, name: "ttl", scope: !138, file: !139, line: 101, baseType: !142, size: 8, offset: 64)
-!149 = !DIDerivedType(tag: DW_TAG_member, name: "protocol", scope: !138, file: !139, line: 102, baseType: !142, size: 8, offset: 72)
-!150 = !DIDerivedType(tag: DW_TAG_member, name: "check", scope: !138, file: !139, line: 103, baseType: !151, size: 16, offset: 80)
-!151 = !DIDerivedType(tag: DW_TAG_typedef, name: "__sum16", file: !56, line: 38, baseType: !57)
-!152 = !DIDerivedType(tag: DW_TAG_member, scope: !138, file: !139, line: 104, baseType: !153, size: 64, offset: 96)
-!153 = distinct !DICompositeType(tag: DW_TAG_union_type, scope: !138, file: !139, line: 104, size: 64, elements: !154)
-!154 = !{!155, !161}
-!155 = !DIDerivedType(tag: DW_TAG_member, scope: !153, file: !139, line: 104, baseType: !156, size: 64)
-!156 = distinct !DICompositeType(tag: DW_TAG_structure_type, scope: !153, file: !139, line: 104, size: 64, elements: !157)
-!157 = !{!158, !160}
-!158 = !DIDerivedType(tag: DW_TAG_member, name: "saddr", scope: !156, file: !139, line: 104, baseType: !159, size: 32)
-!159 = !DIDerivedType(tag: DW_TAG_typedef, name: "__be32", file: !56, line: 34, baseType: !99)
-!160 = !DIDerivedType(tag: DW_TAG_member, name: "daddr", scope: !156, file: !139, line: 104, baseType: !159, size: 32, offset: 32)
-!161 = !DIDerivedType(tag: DW_TAG_member, name: "addrs", scope: !153, file: !139, line: 104, baseType: !162, size: 64)
-!162 = distinct !DICompositeType(tag: DW_TAG_structure_type, scope: !153, file: !139, line: 104, size: 64, elements: !163)
-!163 = !{!164, !165}
-!164 = !DIDerivedType(tag: DW_TAG_member, name: "saddr", scope: !162, file: !139, line: 104, baseType: !159, size: 32)
-!165 = !DIDerivedType(tag: DW_TAG_member, name: "daddr", scope: !162, file: !139, line: 104, baseType: !159, size: 32, offset: 32)
-!166 = !DILocalVariable(name: "protocol", scope: !167, file: !3, line: 32, type: !99)
-!167 = distinct !DILexicalBlock(scope: !168, file: !3, line: 31, column: 99)
-!168 = distinct !DILexicalBlock(scope: !108, file: !3, line: 31, column: 8)
-!169 = !DILocalVariable(name: "count", scope: !167, file: !3, line: 33, type: !101)
-!170 = !DILocalVariable(name: "initial_count", scope: !171, file: !3, line: 40, type: !76)
-!171 = distinct !DILexicalBlock(scope: !172, file: !3, line: 39, column: 12)
-!172 = distinct !DILexicalBlock(scope: !167, file: !3, line: 34, column: 9)
+!74 = !DIDerivedType(tag: DW_TAG_const_type, baseType: null)
+!75 = !DIGlobalVariableExpression(var: !76, expr: !DIExpression(DW_OP_constu, 2, DW_OP_stack_value))
+!76 = distinct !DIGlobalVariable(name: "bpf_map_update_elem", scope: !2, file: !69, line: 78, type: !77, isLocal: true, isDefinition: true)
+!77 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !78, size: 64)
+!78 = !DISubroutineType(types: !79)
+!79 = !{!54, !53, !73, !73, !80}
+!80 = !DIDerivedType(tag: DW_TAG_typedef, name: "__u64", file: !58, line: 31, baseType: !81)
+!81 = !DIBasicType(name: "unsigned long long", size: 64, encoding: DW_ATE_unsigned)
+!82 = distinct !DICompositeType(tag: DW_TAG_structure_type, file: !3, line: 9, size: 256, elements: !83)
+!83 = !{!84, !90, !95, !98}
+!84 = !DIDerivedType(tag: DW_TAG_member, name: "type", scope: !82, file: !3, line: 10, baseType: !85, size: 64)
+!85 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !86, size: 64)
+!86 = !DICompositeType(tag: DW_TAG_array_type, baseType: !87, size: 32, elements: !88)
+!87 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
+!88 = !{!89}
+!89 = !DISubrange(count: 1)
+!90 = !DIDerivedType(tag: DW_TAG_member, name: "max_entries", scope: !82, file: !3, line: 11, baseType: !91, size: 64, offset: 64)
+!91 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !92, size: 64)
+!92 = !DICompositeType(tag: DW_TAG_array_type, baseType: !87, size: 8192, elements: !93)
+!93 = !{!94}
+!94 = !DISubrange(count: 256)
+!95 = !DIDerivedType(tag: DW_TAG_member, name: "key", scope: !82, file: !3, line: 12, baseType: !96, size: 64, offset: 128)
+!96 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !97, size: 64)
+!97 = !DIDerivedType(tag: DW_TAG_typedef, name: "__u32", file: !58, line: 27, baseType: !7)
+!98 = !DIDerivedType(tag: DW_TAG_member, name: "value", scope: !82, file: !3, line: 13, baseType: !99, size: 64, offset: 192)
+!99 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !80, size: 64)
+!100 = !{i32 7, !"Dwarf Version", i32 5}
+!101 = !{i32 2, !"Debug Info Version", i32 3}
+!102 = !{i32 1, !"wchar_size", i32 4}
+!103 = !{i32 7, !"frame-pointer", i32 2}
+!104 = !{i32 7, !"debug-info-assignment-tracking", i1 true}
+!105 = !{!"Ubuntu clang version 18.1.3 (1ubuntu1)"}
+!106 = distinct !DISubprogram(name: "xdp_packet_counter", scope: !3, file: !3, line: 19, type: !107, scopeLine: 19, flags: DIFlagPrototyped | DIFlagAllCallsDescribed, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !2, retainedNodes: !118)
+!107 = !DISubroutineType(types: !108)
+!108 = !{!87, !109}
+!109 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !110, size: 64)
+!110 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "xdp_md", file: !6, line: 6331, size: 192, elements: !111)
+!111 = !{!112, !113, !114, !115, !116, !117}
+!112 = !DIDerivedType(tag: DW_TAG_member, name: "data", scope: !110, file: !6, line: 6332, baseType: !97, size: 32)
+!113 = !DIDerivedType(tag: DW_TAG_member, name: "data_end", scope: !110, file: !6, line: 6333, baseType: !97, size: 32, offset: 32)
+!114 = !DIDerivedType(tag: DW_TAG_member, name: "data_meta", scope: !110, file: !6, line: 6334, baseType: !97, size: 32, offset: 64)
+!115 = !DIDerivedType(tag: DW_TAG_member, name: "ingress_ifindex", scope: !110, file: !6, line: 6336, baseType: !97, size: 32, offset: 96)
+!116 = !DIDerivedType(tag: DW_TAG_member, name: "rx_queue_index", scope: !110, file: !6, line: 6337, baseType: !97, size: 32, offset: 128)
+!117 = !DIDerivedType(tag: DW_TAG_member, name: "egress_ifindex", scope: !110, file: !6, line: 6339, baseType: !97, size: 32, offset: 160)
+!118 = !{!119, !120, !121, !122, !134, !164, !167, !168}
+!119 = !DILocalVariable(name: "ctx", arg: 1, scope: !106, file: !3, line: 19, type: !109)
+!120 = !DILocalVariable(name: "data_end", scope: !106, file: !3, line: 21, type: !53)
+!121 = !DILocalVariable(name: "data", scope: !106, file: !3, line: 22, type: !53)
+!122 = !DILocalVariable(name: "eth", scope: !106, file: !3, line: 25, type: !123)
+!123 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !124, size: 64)
+!124 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "ethhdr", file: !125, line: 173, size: 112, elements: !126)
+!125 = !DIFile(filename: "/usr/include/linux/if_ether.h", directory: "", checksumkind: CSK_MD5, checksum: "163f54fb1af2e21fea410f14eb18fa76")
+!126 = !{!127, !132, !133}
+!127 = !DIDerivedType(tag: DW_TAG_member, name: "h_dest", scope: !124, file: !125, line: 174, baseType: !128, size: 48)
+!128 = !DICompositeType(tag: DW_TAG_array_type, baseType: !129, size: 48, elements: !130)
+!129 = !DIBasicType(name: "unsigned char", size: 8, encoding: DW_ATE_unsigned_char)
+!130 = !{!131}
+!131 = !DISubrange(count: 6)
+!132 = !DIDerivedType(tag: DW_TAG_member, name: "h_source", scope: !124, file: !125, line: 175, baseType: !128, size: 48, offset: 48)
+!133 = !DIDerivedType(tag: DW_TAG_member, name: "h_proto", scope: !124, file: !125, line: 176, baseType: !55, size: 16, offset: 96)
+!134 = !DILocalVariable(name: "ip", scope: !106, file: !3, line: 37, type: !135)
+!135 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !136, size: 64)
+!136 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "iphdr", file: !137, line: 87, size: 160, elements: !138)
+!137 = !DIFile(filename: "/usr/include/linux/ip.h", directory: "", checksumkind: CSK_MD5, checksum: "149778ace30a1ff208adc8783fd04b29")
+!138 = !{!139, !141, !142, !143, !144, !145, !146, !147, !148, !150}
+!139 = !DIDerivedType(tag: DW_TAG_member, name: "ihl", scope: !136, file: !137, line: 89, baseType: !140, size: 4, flags: DIFlagBitField, extraData: i64 0)
+!140 = !DIDerivedType(tag: DW_TAG_typedef, name: "__u8", file: !58, line: 21, baseType: !129)
+!141 = !DIDerivedType(tag: DW_TAG_member, name: "version", scope: !136, file: !137, line: 90, baseType: !140, size: 4, offset: 4, flags: DIFlagBitField, extraData: i64 0)
+!142 = !DIDerivedType(tag: DW_TAG_member, name: "tos", scope: !136, file: !137, line: 97, baseType: !140, size: 8, offset: 8)
+!143 = !DIDerivedType(tag: DW_TAG_member, name: "tot_len", scope: !136, file: !137, line: 98, baseType: !55, size: 16, offset: 16)
+!144 = !DIDerivedType(tag: DW_TAG_member, name: "id", scope: !136, file: !137, line: 99, baseType: !55, size: 16, offset: 32)
+!145 = !DIDerivedType(tag: DW_TAG_member, name: "frag_off", scope: !136, file: !137, line: 100, baseType: !55, size: 16, offset: 48)
+!146 = !DIDerivedType(tag: DW_TAG_member, name: "ttl", scope: !136, file: !137, line: 101, baseType: !140, size: 8, offset: 64)
+!147 = !DIDerivedType(tag: DW_TAG_member, name: "protocol", scope: !136, file: !137, line: 102, baseType: !140, size: 8, offset: 72)
+!148 = !DIDerivedType(tag: DW_TAG_member, name: "check", scope: !136, file: !137, line: 103, baseType: !149, size: 16, offset: 80)
+!149 = !DIDerivedType(tag: DW_TAG_typedef, name: "__sum16", file: !56, line: 38, baseType: !57)
+!150 = !DIDerivedType(tag: DW_TAG_member, scope: !136, file: !137, line: 104, baseType: !151, size: 64, offset: 96)
+!151 = distinct !DICompositeType(tag: DW_TAG_union_type, scope: !136, file: !137, line: 104, size: 64, elements: !152)
+!152 = !{!153, !159}
+!153 = !DIDerivedType(tag: DW_TAG_member, scope: !151, file: !137, line: 104, baseType: !154, size: 64)
+!154 = distinct !DICompositeType(tag: DW_TAG_structure_type, scope: !151, file: !137, line: 104, size: 64, elements: !155)
+!155 = !{!156, !158}
+!156 = !DIDerivedType(tag: DW_TAG_member, name: "saddr", scope: !154, file: !137, line: 104, baseType: !157, size: 32)
+!157 = !DIDerivedType(tag: DW_TAG_typedef, name: "__be32", file: !56, line: 34, baseType: !97)
+!158 = !DIDerivedType(tag: DW_TAG_member, name: "daddr", scope: !154, file: !137, line: 104, baseType: !157, size: 32, offset: 32)
+!159 = !DIDerivedType(tag: DW_TAG_member, name: "addrs", scope: !151, file: !137, line: 104, baseType: !160, size: 64)
+!160 = distinct !DICompositeType(tag: DW_TAG_structure_type, scope: !151, file: !137, line: 104, size: 64, elements: !161)
+!161 = !{!162, !163}
+!162 = !DIDerivedType(tag: DW_TAG_member, name: "saddr", scope: !160, file: !137, line: 104, baseType: !157, size: 32)
+!163 = !DIDerivedType(tag: DW_TAG_member, name: "daddr", scope: !160, file: !137, line: 104, baseType: !157, size: 32, offset: 32)
+!164 = !DILocalVariable(name: "protocol", scope: !165, file: !3, line: 45, type: !97)
+!165 = distinct !DILexicalBlock(scope: !166, file: !3, line: 44, column: 99)
+!166 = distinct !DILexicalBlock(scope: !106, file: !3, line: 44, column: 8)
+!167 = !DILocalVariable(name: "count", scope: !165, file: !3, line: 48, type: !99)
+!168 = !DILocalVariable(name: "initial_count", scope: !169, file: !3, line: 58, type: !80)
+!169 = distinct !DILexicalBlock(scope: !170, file: !3, line: 56, column: 12)
+!170 = distinct !DILexicalBlock(scope: !165, file: !3, line: 49, column: 9)
+!171 = distinct !DIAssignID()
+!172 = !DILocation(line: 0, scope: !165)
 !173 = distinct !DIAssignID()
-!174 = !DILocation(line: 0, scope: !167)
-!175 = distinct !DIAssignID()
-!176 = !DILocation(line: 0, scope: !171)
-!177 = !DILocation(line: 0, scope: !108)
-!178 = !DILocation(line: 16, column: 41, scope: !108)
-!179 = !{!180, !181, i64 4}
-!180 = !{!"xdp_md", !181, i64 0, !181, i64 4, !181, i64 8, !181, i64 12, !181, i64 16, !181, i64 20}
-!181 = !{!"int", !182, i64 0}
-!182 = !{!"omnipotent char", !183, i64 0}
-!183 = !{!"Simple C/C++ TBAA"}
-!184 = !DILocation(line: 16, column: 30, scope: !108)
-!185 = !DILocation(line: 16, column: 22, scope: !108)
-!186 = !DILocation(line: 17, column: 37, scope: !108)
-!187 = !{!180, !181, i64 0}
-!188 = !DILocation(line: 17, column: 26, scope: !108)
-!189 = !DILocation(line: 17, column: 18, scope: !108)
-!190 = !DILocation(line: 20, column: 14, scope: !191)
-!191 = distinct !DILexicalBlock(scope: !108, file: !3, line: 20, column: 9)
-!192 = !DILocation(line: 20, column: 38, scope: !191)
-!193 = !DILocation(line: 20, column: 9, scope: !108)
-!194 = !DILocation(line: 23, column: 14, scope: !195)
-!195 = distinct !DILexicalBlock(scope: !108, file: !3, line: 23, column: 9)
-!196 = !{!197, !198, i64 12}
-!197 = !{!"ethhdr", !182, i64 0, !182, i64 6, !198, i64 12}
-!198 = !{!"short", !182, i64 0}
-!199 = !DILocation(line: 23, column: 22, scope: !195)
-!200 = !DILocation(line: 23, column: 9, scope: !108)
-!201 = !DILocation(line: 31, column: 12, scope: !168)
-!202 = !{!203, !182, i64 9}
-!203 = !{!"iphdr", !182, i64 0, !182, i64 0, !182, i64 1, !198, i64 2, !198, i64 4, !198, i64 6, !182, i64 8, !182, i64 9, !198, i64 10, !182, i64 12}
-!204 = !DILocation(line: 31, column: 36, scope: !168)
-!205 = !DILocation(line: 32, column: 5, scope: !167)
-!206 = !DILocation(line: 32, column: 22, scope: !167)
-!207 = !DILocation(line: 32, column: 11, scope: !167)
-!208 = !{!181, !181, i64 0}
-!209 = distinct !DIAssignID()
-!210 = !DILocation(line: 33, column: 20, scope: !167)
-!211 = !DILocation(line: 34, column: 9, scope: !172)
-!212 = !DILocation(line: 34, column: 9, scope: !167)
-!213 = !DILocation(line: 35, column: 6, scope: !214)
-!214 = distinct !DILexicalBlock(scope: !215, file: !3, line: 35, column: 6)
-!215 = distinct !DILexicalBlock(scope: !172, file: !3, line: 34, column: 16)
-!216 = !DILocation(line: 35, column: 15, scope: !214)
-!217 = !DILocation(line: 35, column: 31, scope: !214)
-!218 = !DILocation(line: 35, column: 34, scope: !214)
-!219 = !{!220, !220, i64 0}
-!220 = !{!"long long", !182, i64 0}
-!221 = !DILocation(line: 35, column: 41, scope: !214)
-!222 = !DILocation(line: 35, column: 6, scope: !215)
-!223 = !DILocation(line: 38, column: 9, scope: !215)
-!224 = !DILocation(line: 39, column: 5, scope: !215)
-!225 = !DILocation(line: 40, column: 9, scope: !171)
-!226 = !DILocation(line: 40, column: 15, scope: !171)
-!227 = distinct !DIAssignID()
-!228 = !DILocation(line: 41, column: 9, scope: !171)
-!229 = !DILocation(line: 42, column: 5, scope: !172)
-!230 = !DILocation(line: 43, column: 1, scope: !168)
-!231 = !DILocation(line: 46, column: 1, scope: !108)
+!174 = !DILocation(line: 0, scope: !169)
+!175 = !DILocation(line: 0, scope: !106)
+!176 = !DILocation(line: 21, column: 41, scope: !106)
+!177 = !{!178, !179, i64 4}
+!178 = !{!"xdp_md", !179, i64 0, !179, i64 4, !179, i64 8, !179, i64 12, !179, i64 16, !179, i64 20}
+!179 = !{!"int", !180, i64 0}
+!180 = !{!"omnipotent char", !181, i64 0}
+!181 = !{!"Simple C/C++ TBAA"}
+!182 = !DILocation(line: 21, column: 30, scope: !106)
+!183 = !DILocation(line: 21, column: 22, scope: !106)
+!184 = !DILocation(line: 22, column: 37, scope: !106)
+!185 = !{!178, !179, i64 0}
+!186 = !DILocation(line: 22, column: 26, scope: !106)
+!187 = !DILocation(line: 22, column: 18, scope: !106)
+!188 = !DILocation(line: 29, column: 14, scope: !189)
+!189 = distinct !DILexicalBlock(scope: !106, file: !3, line: 29, column: 9)
+!190 = !DILocation(line: 29, column: 38, scope: !189)
+!191 = !DILocation(line: 29, column: 9, scope: !106)
+!192 = !DILocation(line: 33, column: 14, scope: !193)
+!193 = distinct !DILexicalBlock(scope: !106, file: !3, line: 33, column: 9)
+!194 = !{!195, !196, i64 12}
+!195 = !{!"ethhdr", !180, i64 0, !180, i64 6, !196, i64 12}
+!196 = !{!"short", !180, i64 0}
+!197 = !DILocation(line: 33, column: 22, scope: !193)
+!198 = !DILocation(line: 33, column: 9, scope: !106)
+!199 = !DILocation(line: 44, column: 12, scope: !166)
+!200 = !{!201, !180, i64 9}
+!201 = !{!"iphdr", !180, i64 0, !180, i64 0, !180, i64 1, !196, i64 2, !196, i64 4, !196, i64 6, !180, i64 8, !180, i64 9, !196, i64 10, !180, i64 12}
+!202 = !DILocation(line: 44, column: 36, scope: !166)
+!203 = !DILocation(line: 45, column: 5, scope: !165)
+!204 = !DILocation(line: 45, column: 22, scope: !165)
+!205 = !DILocation(line: 45, column: 11, scope: !165)
+!206 = !{!179, !179, i64 0}
+!207 = distinct !DIAssignID()
+!208 = !DILocation(line: 48, column: 20, scope: !165)
+!209 = !DILocation(line: 49, column: 9, scope: !170)
+!210 = !DILocation(line: 49, column: 9, scope: !165)
+!211 = !DILocation(line: 51, column: 6, scope: !212)
+!212 = distinct !DILexicalBlock(scope: !213, file: !3, line: 51, column: 6)
+!213 = distinct !DILexicalBlock(scope: !170, file: !3, line: 49, column: 16)
+!214 = !DILocation(line: 51, column: 15, scope: !212)
+!215 = !DILocation(line: 51, column: 30, scope: !212)
+!216 = !DILocation(line: 51, column: 33, scope: !212)
+!217 = !{!218, !218, i64 0}
+!218 = !{!"long long", !180, i64 0}
+!219 = !DILocation(line: 51, column: 40, scope: !212)
+!220 = !DILocation(line: 51, column: 6, scope: !213)
+!221 = !DILocation(line: 55, column: 9, scope: !213)
+!222 = !DILocation(line: 56, column: 5, scope: !213)
+!223 = !DILocation(line: 58, column: 9, scope: !169)
+!224 = !DILocation(line: 58, column: 15, scope: !169)
+!225 = distinct !DIAssignID()
+!226 = !DILocation(line: 59, column: 9, scope: !169)
+!227 = !DILocation(line: 60, column: 5, scope: !170)
+!228 = !DILocation(line: 61, column: 1, scope: !166)
+!229 = !DILocation(line: 64, column: 1, scope: !106)
